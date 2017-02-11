@@ -1,3 +1,5 @@
+
+```
 # vagrant dmg install
 
 vagrant plugin install sahara
@@ -32,6 +34,7 @@ vagrant ssh-config --host ${BOX_NAME} >> ~/.ssh/config
 mkdir chef-repo
 cd chef-repo
 vi knife.rb
+```
 
 ```
 local_mode true
@@ -54,11 +57,13 @@ knife[:automatic_attribute_whitelist] = %w[
 ]
 ```
 
+```
 chef exec knife zero bootstrap ${BOX_NAME} --node-name ${PROJECT_NAME}
 chef exec knife node list
 chef exec knife node show ${PROJECT_NAME}
 
 vi nodes/${PROJECT_NAME}.json						
+```
 
 ```
 "normal": {
@@ -75,8 +80,10 @@ vi nodes/${PROJECT_NAME}.json
   "fqdn": "{ホスト名}", # <<<<< BOX_NAME
 ```
 
+```
 chef exec knife cookbook create common
 vi cookbooks/common/recipes/default.rb
+```
 
 ```
 package "net-tools" do
@@ -84,6 +91,7 @@ package "net-tools" do
 end
 ```
 
+```
 chef exec knife node run_list add ${PROJECT_NAME} common
 chef exec knife zero converge "name:${PROJECT_NAME}"
 
@@ -93,7 +101,9 @@ git commit -m 'first commit'
 
 cd ../
 vagrant sandbox on
+```
 
+```
 ## sandboxモード開始
 # $ vagrant sandbox on
 #
@@ -108,3 +118,4 @@ vagrant sandbox on
 #
 ## 現在sandboxモードかどうかの確認
 # $ vagrant sandbox status
+```
